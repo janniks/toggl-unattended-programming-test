@@ -39,12 +39,16 @@ type CardJson struct {
 	Code  string `json:"code"`
 }
 
+func (d *Deck) Remaining() int64 {
+	return int64(len(d.Cards))
+}
+
 func (d *Deck) ToClosedDeckJson() ClosedDeckJson {
-	return ClosedDeckJson{d.DeckId, d.IsShuffled, int64(len(d.Cards))}
+	return ClosedDeckJson{d.DeckId, d.IsShuffled, d.Remaining()}
 }
 
 func (d *Deck) ToOpenDeckJson() OpenDeckJson {
-	return OpenDeckJson{d.DeckId, d.IsShuffled, int64(len(d.Cards)), IdsToCardJsons(d.Cards)}
+	return OpenDeckJson{d.DeckId, d.IsShuffled, d.Remaining(), IdsToCardJsons(d.Cards)}
 }
 
 func (d *Deck) Shuffle() {

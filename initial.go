@@ -34,7 +34,7 @@ func main() {
 	// Deck API routes
 	r.POST("/deck", api.CreateDeck())
 	r.GET("/deck/:deck_id", api.OpenDeck())
-	r.GET("/deck/:deck_id/cards", api.Draw())
+	r.GET("/deck/:deck_id/draw", api.Draw())
 
 	r.Run(":8080")
 }

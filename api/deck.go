@@ -59,7 +59,7 @@ func Draw() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		count, err := strconv.Atoi(c.DefaultQuery("count", "1"))
 		if err != nil {
-			c.JSON(http.StatusBadRequest, err.Error())
+			c.JSON(http.StatusBadRequest, "invalid count parameter")
 			return
 		}
 
@@ -67,12 +67,19 @@ func Draw() gin.HandlerFunc {
 
 		var deck model.Deck
 		db.First(&deck, "deck_id = ?", c.Params.ByName("deck_id"))
-		if len(deck.Cards) < count {
-			count = len(deck.Cards)
+
+		remaining := int(deck.Remaining())
+		if remaining == 0 {
+			c.JSON(http.StatusOK, "deck is empty")
+			return
+		}
+
+		if remaining < count {
+			count = remaining
 		}
 
 		cards := deck.Cards[:count]
-		deck.Cards = deck.Cards[len(deck.Cards)-count:]
+		deck.Cards = deck.Cards[count:]
 		db.Save(&deck)
 
 		c.JSON(http.StatusOK, gin.H{"cards": model.IdsToCardJsons(cards)})
