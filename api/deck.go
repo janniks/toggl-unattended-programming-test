@@ -40,7 +40,7 @@ func CreateDeck() gin.HandlerFunc {
 		db.NewRecord(deck)
 		db.Create(&deck)
 
-		c.JSON(http.StatusOK, deck.ToClosedDeckJson())
+		c.JSON(http.StatusCreated, deck.ToClosedDeckJson())
 	}
 }
 

@@ -27,10 +27,8 @@ type ClosedDeckJson struct {
 }
 
 type OpenDeckJson struct {
-	DeckId     uuid.UUID  `json:"deck_id"`
-	IsShuffled bool       `json:"shuffled"`
-	Remaining  int64      `json:"remaining"`
-	Cards      []CardJson `json:"cards"`
+	ClosedDeckJson
+	Cards []CardJson `json:"cards"`
 }
 
 type CardJson struct {
@@ -48,7 +46,7 @@ func (d *Deck) ToClosedDeckJson() ClosedDeckJson {
 }
 
 func (d *Deck) ToOpenDeckJson() OpenDeckJson {
-	return OpenDeckJson{d.DeckId, d.IsShuffled, d.Remaining(), IdsToCardJsons(d.Cards)}
+	return OpenDeckJson{d.ToClosedDeckJson(), IdsToCardJsons(d.Cards)}
 }
 
 func (d *Deck) Shuffle() {
