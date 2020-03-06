@@ -218,6 +218,38 @@ func Test_Draw_NotFound(t *testing.T) {
 	assert.Equal(t, 404, w.Code)
 }
 
+func Test_CreateOpenDrawOpen(t *testing.T) {
+	db, _ := gorm.Open("sqlite3", "test.db")
+	defer db.Close()
+	router := SetupRouter(db)
+
+	w := httptest.NewRecorder()
+	req, _ := http.NewRequest("POST", "/deck", nil)
+	router.ServeHTTP(w, req)
+	var createResponse createDeckResponse
+	json.Unmarshal(w.Body.Bytes(), &createResponse)
+
+	w = httptest.NewRecorder()
+	req, _ = http.NewRequest("GET", "/deck/"+createResponse.DeckId, nil)
+	router.ServeHTTP(w, req)
+	var openResponse openDeckResponse
+	json.Unmarshal(w.Body.Bytes(), &openResponse)
+	assert.Equal(t, model.CardN, openResponse.Remaining)
+
+	w = httptest.NewRecorder()
+	req, _ = http.NewRequest("GET", "/deck/"+createResponse.DeckId+"/draw?count=10", nil)
+	router.ServeHTTP(w, req)
+	var drawResponse drawResponse
+	json.Unmarshal(w.Body.Bytes(), &drawResponse)
+	assert.Equal(t, 10, len(drawResponse.Cards))
+
+	w = httptest.NewRecorder()
+	req, _ = http.NewRequest("GET", "/deck/"+createResponse.DeckId, nil)
+	router.ServeHTTP(w, req)
+	json.Unmarshal(w.Body.Bytes(), &openResponse)
+	assert.Equal(t, model.CardN-10, openResponse.Remaining)
+}
+
 func Test_CreateDraw_Standard(t *testing.T) {
 	db, _ := gorm.Open("sqlite3", "test.db")
 	defer db.Close()
