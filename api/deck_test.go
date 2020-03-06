@@ -6,7 +6,7 @@ import (
 )
 
 // Test file structure generated with GoLand (I would not recommend using this structure). Simple asserts should suffice
-// and are easier to follow. For completeness some very few test cases are depicted below.
+// and are easier to read. For completeness some very few test cases are depicted below.
 
 func Test_cardSequence(t *testing.T) {
 	type args struct {

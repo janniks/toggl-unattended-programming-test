@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	"janniks.com/toggl/initial/api"
+	m "janniks.com/toggl/initial/middleware"
 	"janniks.com/toggl/initial/model"
 	"net/http"
 
@@ -31,15 +32,10 @@ func SetupRouter(db *gorm.DB) *gin.Engine {
 		c.String(http.StatusOK, "pong")
 	})
 
-	r.Use(func(c *gin.Context) {
-		c.Set("db", db)
-		c.Next()
-	})
-
 	// Deck API routes
-	r.POST("/deck", api.CreateDeck())
-	r.GET("/deck/:deck_id", api.OpenDeck())
-	r.GET("/deck/:deck_id/draw", api.Draw())
+	r.POST("/deck", m.UseDatabase(db), api.CreateDeck())
+	r.GET("/deck/:deck_id", m.UseDatabase(db), api.OpenDeck())
+	r.GET("/deck/:deck_id/draw", m.UseDatabase(db), api.Draw())
 
 	return r
 }
