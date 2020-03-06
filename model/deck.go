@@ -42,7 +42,7 @@ func (d *Deck) ToClosedDeckJson() ClosedDeckJson {
 }
 
 func (d *Deck) ToOpenDeckJson() OpenDeckJson {
-	return OpenDeckJson{d.DeckId, d.IsShuffled, int64(len(d.Cards)), d.cardJsons()}
+	return OpenDeckJson{d.DeckId, d.IsShuffled, int64(len(d.Cards)), IdsToCardJsons(d.Cards)}
 }
 
 func (d *Deck) Shuffle() {
@@ -52,14 +52,14 @@ func (d *Deck) Shuffle() {
 	d.IsShuffled = true
 }
 
-func (d *Deck) cardJsons() (cardJsons []CardJson) {
-	for _, code := range d.Cards {
-		cardJsons = append(cardJsons, idToCardJson(code))
+func IdsToCardJsons(ids []int64) (cardJsons []CardJson) {
+	for _, id := range ids {
+		cardJsons = append(cardJsons, IdToCardJson(id))
 	}
 	return
 }
 
-func idToCardJson(id int64) (cardJson CardJson) {
+func IdToCardJson(id int64) (cardJson CardJson) {
 	// Match value
 	value := id % (CardN / SuitN)
 	switch value {
@@ -92,6 +92,6 @@ func idToCardJson(id int64) (cardJson CardJson) {
 	return
 }
 
-func codeToId(code string) int64 {
+func CodeToId(code string) int64 {
 	return 0
 }
