@@ -13,8 +13,8 @@ import (
 func CreateDeck() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		// Shuffle parameter
-		shuffledQuery := c.DefaultQuery("shuffled", "false")
-		shuffle := shuffledQuery == "true"
+		shuffleQuery := c.DefaultQuery("shuffle", "false")
+		shuffle := shuffleQuery == "true"
 
 		// Cards parameter (i.e. whitelisted cards)
 		cardsQuery := c.DefaultQuery("cards", "")
@@ -22,7 +22,12 @@ func CreateDeck() gin.HandlerFunc {
 		if cardsQuery == "" {
 			ids = cardSequence(model.CardN)
 		} else {
-			ids = parseCardCodes(cardsQuery)
+			var err error
+			ids, err = parseCardCodes(cardsQuery)
+			if err != nil {
+				c.JSON(http.StatusBadRequest, err.Error())
+				return
+			}
 		}
 
 		db := c.MustGet("db").(*gorm.DB)
@@ -54,7 +59,8 @@ func Draw() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		count, err := strconv.Atoi(c.DefaultQuery("count", "1"))
 		if err != nil {
-			panic(err)
+			c.JSON(http.StatusBadRequest, err.Error())
+			return
 		}
 
 		db := c.MustGet("db").(*gorm.DB)
@@ -80,10 +86,14 @@ func cardSequence(n int) (a []int64) {
 	return
 }
 
-func parseCardCodes(codeQuery string) (ids []int64) {
-	codes := strings.Split(codeQuery, ":")
+func parseCardCodes(codeQuery string) (ids []int64, err error) {
+	codes := strings.Split(codeQuery, ",")
 	for _, code := range codes {
-		ids = append(ids, model.CodeToId(code))
+		id, err := model.CodeToId(code)
+		if err != nil {
+			return nil, err
+		}
+		ids = append(ids, id)
 	}
 	return
 }

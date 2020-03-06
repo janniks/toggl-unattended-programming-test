@@ -1,11 +1,13 @@
 package model
 
 import (
+	"errors"
 	"github.com/google/uuid"
 	"github.com/jinzhu/gorm"
 	"github.com/lib/pq"
 	"math/rand"
 	"strconv"
+	"strings"
 )
 
 const CardN = 52
@@ -92,6 +94,52 @@ func IdToCardJson(id int64) (cardJson CardJson) {
 	return
 }
 
-func CodeToId(code string) int64 {
-	return 0
+func CodeToId(code string) (id int64, err error) {
+	defer func() {
+		if r := recover(); r != nil {
+			id = -1
+			err = errors.New("invalid card parameter")
+		}
+	}()
+
+	valueCharacter := code[0]
+	suitCharacter := code[1]
+
+	if !strings.Contains("0123456789AJQK", string(valueCharacter)) || !strings.Contains("CDHS", string(suitCharacter)) {
+		return -1, errors.New("invalid card code provided")
+	}
+
+	var value int64
+	switch valueCharacter {
+	case 'A':
+		value = 0
+	case 'J':
+		value = 10
+	case 'Q':
+		value = 11
+	case 'K':
+		value = 12
+	default:
+		valueInt := int64(valueCharacter - '0')
+		switch valueInt {
+		case 1:
+			value = 9
+		default:
+			value = valueInt - 1
+		}
+	}
+
+	var suit int64
+	switch suitCharacter {
+	case 'C':
+		suit = 0
+	case 'D':
+		suit = 1
+	case 'H':
+		suit = 2
+	case 'S':
+		suit = 3
+	}
+
+	return suit*(CardN/SuitN) + value, nil
 }
