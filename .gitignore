@@ -32,3 +32,6 @@
 
 # Binary
 /initial
+
+# Database
+*.db

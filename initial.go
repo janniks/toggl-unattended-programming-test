@@ -3,14 +3,14 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	"janniks.com/toggl/initial/api"
-	m "janniks.com/toggl/initial/middleware"
+	"janniks.com/toggl/initial/model"
 	"net/http"
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 )
 
-func setupRouter() *gin.Engine {
+func main() {
 	r := gin.Default()
 
 	// Use file database for initial project (This can easily be changed later without a lot of code changes)
@@ -20,19 +20,21 @@ func setupRouter() *gin.Engine {
 	}
 	defer db.Close()
 
+	db.AutoMigrate(&model.Deck{})
+
 	r.GET("/ping", func(c *gin.Context) {
 		c.String(http.StatusOK, "pong")
 	})
 
+	r.Use(func(c *gin.Context) {
+		c.Set("db", db)
+		c.Next()
+	})
+
 	// Deck API routes
-	r.POST("/deck", m.UseDatabase(db), api.CreateDeck())
-	r.GET("/deck/:deck_id", m.UseDatabase(db), api.OpenDeck())
-	r.GET("/deck/:deck_id/cards", m.UseDatabase(db), api.Draw())
+	r.POST("/deck", api.CreateDeck())
+	r.GET("/deck/:deck_id", api.OpenDeck())
+	r.GET("/deck/:deck_id/cards", api.Draw())
 
-	return r
-}
-
-func main() {
-	r := setupRouter()
 	r.Run(":8080")
 }

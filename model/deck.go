@@ -2,6 +2,8 @@ package model
 
 import (
 	"github.com/google/uuid"
+	"github.com/jinzhu/gorm"
+	"github.com/lib/pq"
 	"math/rand"
 	"strconv"
 )
@@ -10,16 +12,23 @@ const CardN = 52
 const SuitN = 4
 
 type Deck struct {
+	gorm.Model
 	DeckId     uuid.UUID
 	IsShuffled bool
-	Cards      []uint
+	Cards      pq.Int64Array `gorm:"type:integer[]"`
 }
 
-type DeckJson struct {
+type ClosedDeckJson struct {
+	DeckId     uuid.UUID `json:"deck_id"`
+	IsShuffled bool      `json:"shuffled"`
+	Remaining  int64     `json:"remaining"`
+}
+
+type OpenDeckJson struct {
 	DeckId     uuid.UUID  `json:"deck_id"`
 	IsShuffled bool       `json:"shuffled"`
+	Remaining  int64      `json:"remaining"`
 	Cards      []CardJson `json:"cards"`
-	Remaining  uint       `json:"remaining"`
 }
 
 type CardJson struct {
@@ -28,8 +37,12 @@ type CardJson struct {
 	Code  string `json:"code"`
 }
 
-func (d *Deck) ToJson() DeckJson {
-	return DeckJson{d.DeckId, d.IsShuffled, d.cardJsons(), uint(len(d.Cards))}
+func (d *Deck) ToClosedDeckJson() ClosedDeckJson {
+	return ClosedDeckJson{d.DeckId, d.IsShuffled, int64(len(d.Cards))}
+}
+
+func (d *Deck) ToOpenDeckJson() OpenDeckJson {
+	return OpenDeckJson{d.DeckId, d.IsShuffled, int64(len(d.Cards)), d.cardJsons()}
 }
 
 func (d *Deck) Shuffle() {
@@ -46,7 +59,7 @@ func (d *Deck) cardJsons() (cardJsons []CardJson) {
 	return
 }
 
-func idToCardJson(id uint) (cardJson CardJson) {
+func idToCardJson(id int64) (cardJson CardJson) {
 	// Match value
 	value := id % (CardN / SuitN)
 	switch value {
@@ -59,7 +72,7 @@ func idToCardJson(id uint) (cardJson CardJson) {
 	case 12:
 		cardJson.Value = "KING"
 	default:
-		cardJson.Value = strconv.Itoa(int(value))
+		cardJson.Value = strconv.Itoa(int(value) + 1)
 	}
 	cardJson.Code = cardJson.Value[:1]
 
@@ -79,6 +92,6 @@ func idToCardJson(id uint) (cardJson CardJson) {
 	return
 }
 
-func codeToId(code string) uint {
+func codeToId(code string) int64 {
 	return 0
 }
