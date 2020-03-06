@@ -13,29 +13,30 @@ func CreateDeck() gin.HandlerFunc {
 		db := c.MustGet("db").(*gorm.DB)
 
 		deck := model.Deck{DeckId: uuid.New(), Cards: cardSequence(52)}
+		deck.Shuffle()
+
 		db.NewRecord(deck)
 		db.Create(&deck)
 
-		c.JSON(http.StatusOK, gin.H{"deck": deck})
+		c.JSON(http.StatusOK, deck.ToJson())
 	}
 }
 
 func OpenDeck() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{"statue": "success"})
+		c.JSON(http.StatusOK, gin.H{"status": "success"})
 	}
 }
 
 func Draw() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{"statue": "success"})
+		c.JSON(http.StatusOK, gin.H{"status": "success"})
 	}
 }
 
-func cardSequence(n int) []int {
-	a := make([]int, n)
-	for i := range a {
-		a[i] = i
+func cardSequence(n int) (a []uint) {
+	for i := range make([]uint, n) {
+		a = append(a, uint(i))
 	}
-	return a
+	return
 }

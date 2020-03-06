@@ -24,6 +24,7 @@ func setupRouter() *gin.Engine {
 		c.String(http.StatusOK, "pong")
 	})
 
+	// Deck API routes
 	r.POST("/deck", m.UseDatabase(db), api.CreateDeck())
 	r.GET("/deck/:deck_id", m.UseDatabase(db), api.OpenDeck())
 	r.GET("/deck/:deck_id/cards", m.UseDatabase(db), api.Draw())
