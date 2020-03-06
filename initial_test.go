@@ -24,6 +24,10 @@ type openDeckResponse struct {
 	Cards []card `json:"cards"`
 }
 
+type drawResponse struct {
+	Cards []card `json:"cards"`
+}
+
 type card struct {
 	Value string `json:"value"`
 	Suit  string `json:"suit"`
@@ -68,7 +72,7 @@ func Test_CreateDeck_MalformedCardCode(t *testing.T) {
 	json.Unmarshal(w.Body.Bytes(), &errorResponse)
 
 	assert.Equal(t, 400, w.Code)
-	assert.Equal(t, errorResponse, "invalid card code provided")
+	assert.Equal(t, "invalid card code provided", errorResponse)
 
 	w = httptest.NewRecorder()
 	req, _ = http.NewRequest("POST", "/deck?cards=AC,AD,", nil)
@@ -76,7 +80,7 @@ func Test_CreateDeck_MalformedCardCode(t *testing.T) {
 	json.Unmarshal(w.Body.Bytes(), &errorResponse)
 
 	assert.Equal(t, 400, w.Code)
-	assert.Equal(t, errorResponse, "invalid card code provided")
+	assert.Equal(t, "invalid card parameter", errorResponse)
 }
 
 func Test_CreateDeck_MalformedShuffleDefault(t *testing.T) {
@@ -212,4 +216,101 @@ func Test_Draw_NotFound(t *testing.T) {
 	router.ServeHTTP(w, req)
 
 	assert.Equal(t, 404, w.Code)
+}
+
+func Test_CreateDraw_Standard(t *testing.T) {
+	db, _ := gorm.Open("sqlite3", "test.db")
+	defer db.Close()
+	router := SetupRouter(db)
+
+	w := httptest.NewRecorder()
+	req, _ := http.NewRequest("POST", "/deck", nil)
+	router.ServeHTTP(w, req)
+	var createResponse createDeckResponse
+	json.Unmarshal(w.Body.Bytes(), &createResponse)
+
+	w = httptest.NewRecorder()
+	req, _ = http.NewRequest("GET", "/deck/"+createResponse.DeckId+"/draw", nil)
+	router.ServeHTTP(w, req)
+	var drawResponse drawResponse
+	json.Unmarshal(w.Body.Bytes(), &drawResponse)
+
+	assert.Equal(t, 200, w.Code)
+	assert.Equal(t, 1, len(drawResponse.Cards))
+}
+
+func Test_CreateDraw_MalformedCount(t *testing.T) {
+	db, _ := gorm.Open("sqlite3", "test.db")
+	defer db.Close()
+	router := SetupRouter(db)
+
+	w := httptest.NewRecorder()
+	req, _ := http.NewRequest("POST", "/deck", nil)
+	router.ServeHTTP(w, req)
+	var createResponse createDeckResponse
+	json.Unmarshal(w.Body.Bytes(), &createResponse)
+
+	w = httptest.NewRecorder()
+	req, _ = http.NewRequest("GET", "/deck/"+createResponse.DeckId+"/draw?count=XYZ", nil)
+	router.ServeHTTP(w, req)
+	var drawResponse string
+	json.Unmarshal(w.Body.Bytes(), &drawResponse)
+
+	assert.Equal(t, 400, w.Code)
+	assert.Equal(t, "invalid count parameter", drawResponse)
+
+	w = httptest.NewRecorder()
+	req, _ = http.NewRequest("GET", "/deck/"+createResponse.DeckId+"/draw?count=0", nil)
+	router.ServeHTTP(w, req)
+	json.Unmarshal(w.Body.Bytes(), &drawResponse)
+
+	assert.Equal(t, 400, w.Code)
+	assert.Equal(t, "invalid count parameter", drawResponse)
+
+	w = httptest.NewRecorder()
+	req, _ = http.NewRequest("GET", "/deck/"+createResponse.DeckId+"/draw?count=-1", nil)
+	router.ServeHTTP(w, req)
+	json.Unmarshal(w.Body.Bytes(), &drawResponse)
+
+	assert.Equal(t, 400, w.Code)
+	assert.Equal(t, "invalid count parameter", drawResponse)
+}
+
+func Test_CreateDraw_LessAvailable(t *testing.T) {
+	db, _ := gorm.Open("sqlite3", "test.db")
+	defer db.Close()
+	router := SetupRouter(db)
+
+	w := httptest.NewRecorder()
+	req, _ := http.NewRequest("POST", "/deck?cards=AC,AD,AH,AS", nil)
+	router.ServeHTTP(w, req)
+	var createResponse createDeckResponse
+	json.Unmarshal(w.Body.Bytes(), &createResponse)
+	assert.Equal(t, 4, createResponse.Remaining)
+
+	w = httptest.NewRecorder()
+	req, _ = http.NewRequest("GET", "/deck/"+createResponse.DeckId+"/draw?count=2", nil)
+	router.ServeHTTP(w, req)
+	var drawResponse drawResponse
+	json.Unmarshal(w.Body.Bytes(), &drawResponse)
+
+	assert.Equal(t, 200, w.Code)
+	assert.Equal(t, 2, len(drawResponse.Cards))
+
+	w = httptest.NewRecorder()
+	req, _ = http.NewRequest("GET", "/deck/"+createResponse.DeckId+"/draw?count=6", nil)
+	router.ServeHTTP(w, req)
+	json.Unmarshal(w.Body.Bytes(), &drawResponse)
+
+	assert.Equal(t, 200, w.Code)
+	assert.Equal(t, 2, len(drawResponse.Cards))
+
+	w = httptest.NewRecorder()
+	req, _ = http.NewRequest("GET", "/deck/"+createResponse.DeckId+"/draw", nil)
+	router.ServeHTTP(w, req)
+	var drawEmptyResponse string
+	json.Unmarshal(w.Body.Bytes(), &drawEmptyResponse)
+
+	assert.Equal(t, 200, w.Code)
+	assert.Equal(t, "deck is empty", drawEmptyResponse)
 }

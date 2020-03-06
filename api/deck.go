@@ -49,7 +49,10 @@ func OpenDeck() gin.HandlerFunc {
 		db := c.MustGet("db").(*gorm.DB)
 
 		var deck model.Deck
-		db.First(&deck, "deck_id = ?", c.Params.ByName("deck_id"))
+		if db.First(&deck, "deck_id = ?", c.Params.ByName("deck_id")).RecordNotFound() {
+			c.JSON(http.StatusNotFound, "deck not found")
+			return
+		}
 
 		c.JSON(http.StatusOK, deck.ToOpenDeckJson())
 	}
@@ -58,7 +61,7 @@ func OpenDeck() gin.HandlerFunc {
 func Draw() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		count, err := strconv.Atoi(c.DefaultQuery("count", "1"))
-		if err != nil {
+		if err != nil || count < 1 {
 			c.JSON(http.StatusBadRequest, "invalid count parameter")
 			return
 		}
@@ -66,7 +69,10 @@ func Draw() gin.HandlerFunc {
 		db := c.MustGet("db").(*gorm.DB)
 
 		var deck model.Deck
-		db.First(&deck, "deck_id = ?", c.Params.ByName("deck_id"))
+		if db.First(&deck, "deck_id = ?", c.Params.ByName("deck_id")).RecordNotFound() {
+			c.JSON(http.StatusNotFound, "deck not found")
+			return
+		}
 
 		remaining := int(deck.Remaining())
 		if remaining == 0 {
