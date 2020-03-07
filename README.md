@@ -9,7 +9,7 @@ The test should be completed in three hours._
 > ♣️♦️
 > The goal of the programming test is to create an API that can create decks of playing cards.
 > Those decks of cards can be requested and viewed.
-> Additionally, cards can be drawn from a deck - removing the card from it leaving fewer remaining cards in the deck.
+> Additionally, cards can be drawn from a deck - removing the card from it and leaving fewer remaining cards in the deck.
 > ♠️♥️ - [`full specification`](./spec.pdf)
 
 ## Run 🚀
@@ -61,7 +61,7 @@ The actual data being stored for cards in a deck is simply an `integer` array.
 The `integer` values are converted to cards (with values and suits) during runtime.
 
 The only notable problems I encountered are listed in the subsequent pitfalls section.
-Due to the time constraint, I was not able to complete all planned refactoring. For example, the [`initial_test.go`](./initial_test.go) API test file is not very DRY. Additionally, there are likely some test cases and parameter edge cases that were missed and could cause unexpected behavior.
+Due to the time constraint, I was not able to complete all planned refactoring. For example, the [`initial_test.go`](./initial_test.go) API test file is not very DRY. Additionally, there are some test cases and parameter edge cases that were missed and could cause unexpected behavior.
 
 ## Pitfalls ⚠️
 
