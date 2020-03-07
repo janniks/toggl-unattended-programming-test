@@ -1,0 +1,96 @@
+{
+	"info": {
+		"_postman_id": "1f14e1f9-9793-4565-85c8-8512c28f74d1",
+		"name": "toggl initial",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/deck",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "219d2429-f95e-4da4-a9a6-3b077f11dfe9",
+						"exec": [
+							"pm.globals.set(\"deck_id\",  pm.response.json().deck_id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/deck?shuffle=true&cards=AH,KD,1S,1H",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"deck"
+					],
+					"query": [
+						{
+							"key": "shuffle",
+							"value": "true"
+						},
+						{
+							"key": "cards",
+							"value": "AH,KD,1S,1H"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/deck/:deck_id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/deck/{{deck_id}}",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"deck",
+						"{{deck_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/deck/:deck_id/draw",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/deck/{{deck_id}}/draw?count=2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"deck",
+						"{{deck_id}}",
+						"draw"
+					],
+					"query": [
+						{
+							"key": "count",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
