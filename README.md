@@ -80,6 +80,14 @@ Due to the time constraint, I was not able to complete all planned refactoring. 
 - Testing best practices are not very clear/defined in the Go community. Auto-generated code was often very different from the sample code of multiple projects.
 - Now knowing what I learned through this project, I would start writing tests and API validation first. Go/Gin was very new to me which lead me to change project structures a couple of times and made true TDD a bit difficult. 
 
+## Roadmap 🚧
+
+_There's still some stuff that I'd like to continue_
+
+- DRY repeated code blocks (`db` fetching, http requests in tests, etc.)
+- Simplify conversion of card `id` to `code` and vice-versa
+- Add more tests
+
 ## Feedback 💬
 
 If you notice anything in this repository - bad code style, bad practices, bugs, very wet code, etc. - please let me know! I enjoyed this project in Go and would like to learn more 🙏
