@@ -19,6 +19,12 @@ The test should be completed in three hours._
 > Current `go` executables should detect and install dependencies correctly.
 > Set `GIN_MODE` to `release` for production deploys.
 
+To manually install dependencies run:
+```
+go get -d -v ./...
+go install -v ./...
+```
+
 To start the complete API run:
 ```
 go run initial.go
@@ -28,6 +34,8 @@ To test all available test files run:
 ```
 go test -v ./...
 ```
+
+> Additionally, a `Dockerfile` is provided that will run anywhere Docker runs.
 
 ## Preparation 📚
 
