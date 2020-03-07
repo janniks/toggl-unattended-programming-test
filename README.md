@@ -2,7 +2,7 @@
 
 _March 6th 2020_
 
-_This is an initial project as part of a job interview at toggl.
+_This is a test as part of a job interview at toggl.
 The test consists of a simple API backend to be written in Go.
 The test should be completed in three hours._
 
