@@ -4,7 +4,7 @@ _March 6th 2020_
 
 This an initial project as part of a job interview at toggl.
 
-The test description describes a simple API backend to be written in [Go](https://golang.org/). The original specification can be found at [`/spec.pdf`](./spec.pdf).
+The test description describes a simple API backend to be written in [Go](https://golang.org/). The original specification can be found at [`spec.pdf`](./spec.pdf).
 
 ## Run 🚀
 
@@ -47,7 +47,7 @@ GET  /deck/:deck_id       # fetch deck by id
 GET  /deck/:deck_id/draw  # draw cards from deck (optional parameters: count)
 ```
 
-_The exact usage can be inspected via the [`/api.postman_collection.json`](./api.postman_collection.json) postman collection._
+_The exact usage can be inspected via the [`api.postman_collection.json`](./api.postman_collection.json) postman collection._
 
 The only notable problems I encountered are listed in the subsequent pitfalls section.
 
