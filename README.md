@@ -42,9 +42,9 @@ I chose SQLite as a file database (perfect for a proof-of-concept project) which
 
 The API structure is very simple:
 ```
-POST /deck                # create new deck (parameters: cards, shuffle)
+POST /deck                # create new deck (optional parameters: cards, shuffle)
 GET  /deck/:deck_id       # fetch deck by id
-GET  /deck/:deck_id/draw  # draw cards from deck (parameters: count)
+GET  /deck/:deck_id/draw  # draw cards from deck (optional parameters: count)
 ```
 
 _The exact usage can be inspected via the [`/api.postman_collection.json`](./api.postman_collection.json) postman collection._
