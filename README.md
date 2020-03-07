@@ -2,15 +2,15 @@
 
 _March 6th 2020_
 
-This an initial project as part of a job interview at toggl.
-The test consists of a simple API backend to be written in [Go](https://golang.org/).
-The original specification can be found at [`spec.pdf`](./spec.pdf).
+_This an initial project as part of a job interview at toggl.
+The test consists of a simple API backend to be written in Go.
+The test should be completed in three hours._
 
 > ♣️♦️
 > The goal of the programming test is to create an API that can create decks of playing cards.
 > Those decks of cards can be requested and viewed.
 > Additionally, cards can be drawn from a deck - removing the card from it leaving fewer remaining cards in the deck.
-> ♠️♥️
+> ♠️♥️ - [`full specification`](./spec.pdf)
 
 ## Run 🚀
 
@@ -29,7 +29,7 @@ go test -v ./...
 
 ## Preparation 📚
 
-This is the first Go project that I worked on. To prepare, I went through the following resources beforehand
+This is the first [Go](https://golang.org/) project that I worked on. To prepare, I went through the following resources beforehand
 
 - I read through [Learn Go in Y Minutes](https://learnxinyminutes.com/docs/go/) which gave me a super quick and dirty introduction to Go
 - I followed the project structuring guidelines of [How to Write Go Code](https://golang.org/doc/code.html)
