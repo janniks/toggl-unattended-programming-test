@@ -24,11 +24,10 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/deck?shuffle=true&cards=AH,KD,1S,1H",
+					"raw": "{{host}}/deck?shuffle=true&cards=AH,KD,1S,1H,JC",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8080",
 					"path": [
 						"deck"
 					],
@@ -39,7 +38,7 @@
 						},
 						{
 							"key": "cards",
-							"value": "AH,KD,1S,1H"
+							"value": "AH,KD,1S,1H,JC"
 						}
 					]
 				}
@@ -52,11 +51,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/deck/{{deck_id}}",
+					"raw": "{{host}}/deck/{{deck_id}}",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8080",
 					"path": [
 						"deck",
 						"{{deck_id}}"
@@ -71,11 +69,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/deck/{{deck_id}}/draw?count=2",
+					"raw": "{{host}}/deck/{{deck_id}}/draw?count=2",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8080",
 					"path": [
 						"deck",
 						"{{deck_id}}",
@@ -90,6 +87,36 @@
 				}
 			},
 			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "ec4d3a96-17c9-4a46-a83e-353b9ea4d31d",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "2409caac-68da-4b15-af7c-9b424eee8a02",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "5bbfd9c0-89c4-4f36-bb25-91355f71ee3c",
+			"key": "host",
+			"value": "https://toggl.janniks.com",
+			"type": "string"
 		}
 	],
 	"protocolProfileBehavior": {}
