@@ -35,7 +35,7 @@ To test all available test files run:
 go test -v ./...
 ```
 
-> Additionally, a `Dockerfile` is provided that will run anywhere Docker runs.
+> Additionally, a [`Dockerfile`](./Dockerfile) is provided that will run anywhere Docker runs.
 
 ## Preparation 📚
 
