@@ -95,4 +95,4 @@ _There's still some stuff that I'd like to continue_
 
 ## Feedback 💬
 
-If you notice anything in this repository - bad code style, bad practices, bugs, very wet code, etc. - please let me know! I enjoyed this project in Go and would like to learn more 🙏
+If you notice anything in this repository - bad code style, bad practices, bugs, very wet code, etc. - [please let me know!](https://twitter.com/messages/compose?recipient_id=82144365) I enjoyed this project in Go and would like to learn more 🙏
