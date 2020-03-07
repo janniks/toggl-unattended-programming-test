@@ -15,6 +15,8 @@ The test should be completed in three hours._
 ## Run 🚀
 
 > All commands are to be run from the root project directory.
+> This project uses Go version `1.14`.
+> Current `go` executables should detect and install dependencies correctly.
 > Set `GIN_MODE` to `release` for production deploys.
 
 To start the complete API run:
