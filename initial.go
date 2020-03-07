@@ -20,7 +20,7 @@ func main() {
 	defer db.Close()
 
 	r := SetupRouter(db)
-	r.Run(":8080")
+	r.Run("0.0.0.0:80")
 }
 
 func SetupRouter(db *gorm.DB) *gin.Engine {
