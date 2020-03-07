@@ -6,6 +6,21 @@ This an initial project as part of a job interview at toggl.
 
 The test description describes a simple API backend to be written in [Go](https://golang.org/). The original specification can be found at [`/spec.pdf`](./spec.pdf).
 
+## Run 🚀
+
+> All commands are to be run from the root project directory.
+> Set `GIN_MODE` to `release` for production deploys.
+
+To start the complete API run:
+```
+go run initial.go
+```
+
+To test all available test files run:
+```
+go test -v ./...
+```
+
 ## Preparation 📚
 
 This is the first project in Go that I worked on. To prepare, I went through the following resources beforehand
@@ -17,7 +32,7 @@ This is the first project in Go that I worked on. To prepare, I went through the
 
 To choose a backend framework and ORM I simply launched a few Google searches. Go offers many promising solutions, but I chose one of the most popular (although lacking documentation) frameworks [Gin](https://github.com/gin-gonic/gin) along with [GORM](https://github.com/jinzhu/gorm).
 
-## Experience 🚀
+## Experience 🎡
 
 The code itself is fairly self-documenting and was super fun to write.
 
