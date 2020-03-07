@@ -1,10 +1,16 @@
-# ⏰ Toggl Backend Unattended Programming Test
+# Toggl Backend Unattended Programming Test
 
 _March 6th 2020_
 
 This an initial project as part of a job interview at toggl.
 The test consists of a simple API backend to be written in [Go](https://golang.org/).
 The original specification can be found at [`spec.pdf`](./spec.pdf).
+
+> ♣️♦️
+> The goal of the programming test is to create an API that can create decks of playing cards.
+> Those decks of cards can be requested and viewed.
+> Additionally, cards can be drawn from a deck - removing the card from it leaving less remaining cards in the deck.
+> ♠️♥️
 
 ## Run 🚀
 
@@ -23,7 +29,7 @@ go test -v ./...
 
 ## Preparation 📚
 
-This is the first project in Go that I worked on. To prepare, I went through the following resources beforehand
+This is the first Go project that I worked on. To prepare, I went through the following resources beforehand
 
 - I read through [Learn Go in Y Minutes](https://learnxinyminutes.com/docs/go/) which gave me a super quick and dirty introduction to Go
 - I followed the project structuring guidelines of [How to Write Go Code](https://golang.org/doc/code.html)
@@ -49,7 +55,9 @@ GET  /deck/:deck_id/draw  # draw cards from deck (optional parameters: count)
 
 _The exact usage can be inspected via the [`api.postman_collection.json`](./api.postman_collection.json) postman collection._
 
-The only notable problems I encountered are listed in the subsequent pitfalls section.
+The actual data being stored for cards in a deck is simply an `integer` array. The `integer` values are converted to cards (with values and suits) during runtime.
+
+The only notable problems I encountered are listed in the subsequent pitfalls section. Due to the time constraint I was not able to complete all planned refactoring. For example, the [`initial_test.go`](./initial_test.go) API test file is not very DRY. Additionally, there are likely some test cases and parameter edge cases that were missed and could cause unexpected behavior.
 
 ## Pitfalls ⚠️
 
@@ -57,3 +65,7 @@ The only notable problems I encountered are listed in the subsequent pitfalls se
 - Constraints to certain data-types due to lack of support in GORM ([gorm#1588](https://github.com/jinzhu/gorm/issues/1588)) lead to some lost time.
 - Testing best practices are not very clear/defined in the Go community. Auto-generated code was often very different from sample code of multiple projects.
 - Now knowing what I learned through this project, I would start writing tests and API validation first. Go/Gin was very new to me which lead me to change project structures a couple of times and made true TDD a bit difficult. 
+
+## Feedback 💬
+
+If you notice anything in this repository - bad code style, bad practices, bugs, very wet code, etc. - please let me know! I enjoyed this project in Go and would like to learn more 🙏
