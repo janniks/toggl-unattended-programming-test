@@ -12,7 +12,21 @@ The test should be completed in three hours._
 > Additionally, cards can be drawn from a deck - removing the card from it and leaving fewer remaining cards in the deck.
 > ♠️♥️ - [`full specification`](./spec.pdf)
 
-## Run 🚀
+## Usage ⚡️
+
+> The current API is live at [`toggl.janniks.com/ping`](https://toggl.janniks.com/ping)
+
+The API structure is very simple:
+```
+GET  /ping                # pong
+POST /deck                # create new deck (optional parameters: cards, shuffle)
+GET  /deck/:deck_id       # fetch deck by id
+GET  /deck/:deck_id/draw  # draw cards from deck (optional parameters: count)
+```
+
+_The exact usage can be inspected via the [`api.postman_collection.json`](./api.postman_collection.json) postman collection._
+
+## Run 🛠
 
 > All commands are to be run from the root project directory.
 > This project uses Go version `1.14`.
@@ -57,15 +71,6 @@ Using Go, Gin, and GORM was fairly straight-forward and I could get going very q
 GoLand was also a great choice with many cool features and tricks (like [postfix completions](https://twitter.com/golandide/status/991301502449963009)). 
 
 I chose SQLite as a file database (perfect for a proof-of-concept project) which can easily be replaced by any other SQL-type database without any logic changes.
-
-The API structure is very simple:
-```
-POST /deck                # create new deck (optional parameters: cards, shuffle)
-GET  /deck/:deck_id       # fetch deck by id
-GET  /deck/:deck_id/draw  # draw cards from deck (optional parameters: count)
-```
-
-_The exact usage can be inspected via the [`api.postman_collection.json`](./api.postman_collection.json) postman collection._
 
 The actual data being stored for cards in a deck is simply an `integer` array.
 The `integer` values are converted to cards (with values and suits) during runtime.
