@@ -10,7 +10,7 @@ The test should be completed in three hours._
 > 
 > I was invited to interview at Toggl.
 > The interview invite already included a clause agreeing to a salary of USD 50,000.
-> Toggl is a great company building great products and I like their transparency.
+> Toggl is a great company building great products and I like its transparency.
 > However, I will be not pursuing employment at Toggl at this time.
 > I still have a list of companies with products and ideologies that I love (some of them with [globally-competitive compensation](https://github.com/ymslavov/established-remote)).
 >
@@ -116,5 +116,5 @@ The specification for this programming test came from [Toggl](https://toggl.com/
 The test is likely inspired by the [Deck of Cards](https://deckofcardsapi.com/) project.
 
 I have asked Toggl whether I may keep this programming test open-source and online.
-So far, I have not been prohibitted to share the test and the results.
+So far, I have not been prohibited to share the test and the results.
 I will readily remove the repository if anything changes.
