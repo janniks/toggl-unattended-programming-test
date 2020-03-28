@@ -2,15 +2,27 @@
 
 _March 6th 2020_
 
-_This is a test as part of a job interview at toggl.
+_This is a test as part of a job interview at Toggl.
 The test consists of a simple API backend to be written in Go.
 The test should be completed in three hours._
 
-> ♣️♦️
-> The goal of the programming test is to create an API that can create decks of playing cards.
-> Those decks of cards can be requested and viewed.
-> Additionally, cards can be drawn from a deck - removing the card from it and leaving fewer remaining cards in the deck.
-> ♠️♥️ - [`full specification`](./spec.pdf)
+> **Update** March 12th 2020
+> 
+> I was invited to interview at Toggl.
+> The interview invite already included a clause agreeing to a salary of USD 50,000.
+> Toggl is a great company building great products and I like their transparency.
+> However, I will be not pursuing employment at Toggl at this time.
+> I still have a list of companies with products and ideologies that I love (some of them with [globally-competitive compensation](https://github.com/ymslavov/established-remote)).
+>
+> So, it looks like the programming test was good enough—although, I'd still love to get some feedback if anybody with Go experience ever finds this repository.
+
+---
+
+♣️♦️
+The goal of the programming test is to create an API that can create decks of playing cards.
+Those decks of cards can be requested and viewed.
+Additionally, cards can be drawn from a deck - removing the card from it and leaving fewer remaining cards in the deck.
+♠️♥️ - [`full specification`](./spec.pdf)
 
 ## Usage ⚡️
 
