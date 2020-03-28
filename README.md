@@ -21,8 +21,8 @@ The test should be completed in three hours._
 ♣️♦️
 The goal of the programming test is to create an API that can create decks of playing cards.
 Those decks of cards can be requested and viewed.
-Additionally, cards can be drawn from a deck - removing the card from it and leaving fewer remaining cards in the deck.
-♠️♥️ - [`full specification`](./spec.pdf)
+Additionally, cards can be drawn from a deck—removing the card from it and leaving fewer remaining cards in the deck.
+♠️♥️ — [`full specification`](./spec.pdf)
 
 ## Usage ⚡️
 
@@ -95,7 +95,7 @@ Due to the time constraint, I was not able to complete all planned refactoring. 
 - No generics in Go _([very interesting approach](https://blog.golang.org/why-generics), yet somewhat annoying due to other issues mentioned below)_
 - Constraints to certain data-types due to lack of support in GORM ([gorm#1588](https://github.com/jinzhu/gorm/issues/1588)) lead to some lost time.
 - Testing best practices are not very clear/defined in the Go community. Auto-generated code was often very different from the sample code of multiple projects.
-- Now knowing what I learned through this project, I would start writing tests and API validation first. Go/Gin was very new to me which lead me to change project structures a couple of times and made true TDD a bit difficult. 
+- Now—knowing what I learned through this project—I would start writing tests and API validation first. Go/Gin was very new to me which lead me to change project structures a couple of times and made true TDD a bit difficult. 
 
 ## Roadmap 🚧
 
@@ -108,7 +108,7 @@ _Some stuff that I'd continue if there had been more time_
 
 ## Feedback 💬
 
-If you notice anything in this repository - bad code style, bad practices, bugs, very wet code, etc. - [please let me know!](https://twitter.com/messages/compose?recipient_id=82144365) I enjoyed this project in Go and would like to learn more 🙏
+If you notice anything in this repository—bad code style, bad practices, bugs, very wet code, etc.—[please let me know!](https://twitter.com/messages/compose?recipient_id=82144365) I enjoyed this project in Go and would like to learn more 🙏
 
 ## Acknowledgments 🙌
 
