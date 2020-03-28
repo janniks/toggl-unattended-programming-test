@@ -92,19 +92,28 @@ Due to the time constraint, I was not able to complete all planned refactoring. 
 
 ## Pitfalls ⚠️
 
-- No generics in Go 😱 _(somewhat annoying due to other issues mentioned below)_
+- No generics in Go _([very interesting approach](https://blog.golang.org/why-generics), yet somewhat annoying due to other issues mentioned below)_
 - Constraints to certain data-types due to lack of support in GORM ([gorm#1588](https://github.com/jinzhu/gorm/issues/1588)) lead to some lost time.
 - Testing best practices are not very clear/defined in the Go community. Auto-generated code was often very different from the sample code of multiple projects.
 - Now knowing what I learned through this project, I would start writing tests and API validation first. Go/Gin was very new to me which lead me to change project structures a couple of times and made true TDD a bit difficult. 
 
 ## Roadmap 🚧
 
-_There's still some stuff that I'd like to continue_
+_Some stuff that I'd continue if there had been more time_
 
 - DRY repeated code blocks (`db` fetching, http requests in tests, etc.)
+- Shorten (aka modularize) some of the longer API controller methods
 - Simplify conversion of card `id` to `code` and vice-versa
 - Add more tests
 
 ## Feedback 💬
 
 If you notice anything in this repository - bad code style, bad practices, bugs, very wet code, etc. - [please let me know!](https://twitter.com/messages/compose?recipient_id=82144365) I enjoyed this project in Go and would like to learn more 🙏
+
+## Acknowledgments 🙌
+
+The specification for this programming test came from [Toggl](https://toggl.com/)—an awesome company making great [time-tracking](https://toggl.com/features/) and [hiring](https://toggl.com/hire/) tools.
+The test is likely inspired by the [Deck of Cards](https://deckofcardsapi.com/) project.
+
+So far, I have not been prohibitted to share this test, nor asked to take it down.
+I will update the repository if anything changes.
