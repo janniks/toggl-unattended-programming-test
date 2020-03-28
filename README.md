@@ -6,7 +6,7 @@ _This is a test as part of a job interview at Toggl.
 The test consists of a simple API backend to be written in Go.
 The test should be completed in three hours._
 
-> **Update** March 12th 2020
+> _**Update** March 12th 2020_
 > 
 > I was invited to interview at Toggl.
 > The interview invite already included a clause agreeing to a salary of USD 50,000.
@@ -115,5 +115,6 @@ If you notice anything in this repository - bad code style, bad practices, bugs,
 The specification for this programming test came from [Toggl](https://toggl.com/)—an awesome company making great [time-tracking](https://toggl.com/features/) and [hiring](https://toggl.com/hire/) tools.
 The test is likely inspired by the [Deck of Cards](https://deckofcardsapi.com/) project.
 
-So far, I have not been prohibitted to share this test, nor asked to take it down.
-I will update the repository if anything changes.
+I have asked Toggl whether I may keep this programming test open-source and online.
+So far, I have not been prohibitted to share the test and the results.
+I will readily remove the repository if anything changes.
